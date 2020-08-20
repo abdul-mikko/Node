@@ -3,15 +3,19 @@ const path = require('path')
 
 const router = express.Router();
 
+const products = [];
 
 router.get('/add-product', (req, res) => {
-    res.send('<form action="/admin/add-product" method="POST"><input type="text" name="title"><button type="submit">Add</button> </form>');
+    res.render('add-product', { pageTilte: 'Add Product' });
 })
 
 
 router.post('/add-product', (req, res) => {
-    console.log(req.body);
-    res.sendFile(path.join(__dirname, '../', 'views', 'admin.html'))
+    products.push({ title: req.body.title });
+    console.log(products)
+    res.redirect('/');
+
 })
 
-module.exports = router;
+exports.adminData = router;
+exports.product = products;
