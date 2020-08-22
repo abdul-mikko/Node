@@ -12,14 +12,13 @@ app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin')
 const shopRoutes = require('./routes/shop')
-
-
-app.use('/admin', adminRoutes.adminData);
+app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
-app.use((req, res) => {
-    res.status(404).render('404', { pageTilte: 'Page Not Found' });
-})
+const errorController = require('./controller/error')
+app.use(errorController.error)
+
+
 
 app.listen(5000);
 
